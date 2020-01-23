@@ -8,10 +8,13 @@
       --two-units: calc(var(--unit) * 2);
       --three-units: calc(var(--unit) * 3);
       --four-units: calc(var(--unit) * 4);
+
+      --border-color: gray;
     }
 
     body {
       margin: 0;
+      font-size: calc(var(--unit) * 0.8);
     }
 
     .header {
@@ -30,6 +33,51 @@
       padding-bottom: 31.2%;
       background-image: url('images/logotype.svg');
     }
+
+    .main-content {
+      margin: var(--unit);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-column-gap: var(--unit);
+    }
+
+    .queens-board-container {
+      grid-column: span 2;
+    }
+
+    .queens-board {
+      border: 1px solid var(--border-color);
+      width: 100%;
+      display: grid;
+    }
+
+    .queens-board__cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      position: relative;
+    }
+
+    .queens-board__cell::before {
+      content: '';
+      height: 0;
+      overflow: hidden;
+      padding-bottom: 100%;
+    }
+
+    .information-container {
+      grid-column: span 2;
+    }
+
+    .information {
+
+    }
+
+    .information__text {
+      margin: 0;
+    }
   </style>
 </head>
 <body>
@@ -40,9 +88,120 @@
   </div>
   <div class="main-content">
     <div class="queens-board-container">
+      <div style="grid-template-columns: repeat(8, 1fr);" class="queens-board">
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+        <div class="queens-board__cell"></div>
+      </div>
+      <div class="queens-controls">
+        <div class="queens-controls__control-container">
+          <label class="queens-controls__label">
+            n =
+            <select class="queens-controls__input">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </label>
+        </div>
+        <div class="queens-controls__control-container">
+          <label class="queens-controls__label">
+            t =
+            <select class="queens-controls__input">
+              <option value="0">0 milliseconds</option>
+              <option value="100">100 milliseconds</option>
+              <option value="200">200 milliseconds</option>
+              <option value="400">400 milliseconds</option>
+              <option value="500">500 milliseconds</option>
+              <option value="600">600 milliseconds</option>
+              <option value="700">700 milliseconds</option>
+              <option value="800">800 milliseconds</option>
+              <option value="900">900 milliseconds</option>
+              <option value="1000">1 second</option>
+              <option value="5000">5 seconds</option>
+              <option value="10000">10 seconds</option>
+            </select>
+          </label>
+        </div>
+        <div class="queens-controls__submit-button-container">
+          <button class="queens-controls__submit-button">Get a random solution</button>
+        </div>
+      </div>
     </div>
     <div class="information-container">
-
+      <div class="information">
+        <p class="information__text">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </div>
     </div>
   </div>
 </body>
