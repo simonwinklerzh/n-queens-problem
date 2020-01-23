@@ -3,16 +3,43 @@
 <head>
   <title>n-queens problem</title>
   <style>
+    :root {
+      --unit: calc(10px + 1vw);
+      --two-units: calc(var(--unit) * 2);
+      --three-units: calc(var(--unit) * 3);
+      --four-units: calc(var(--unit) * 4);
+    }
 
+    body {
+      margin: 0;
+    }
+
+    .header {
+      overflow: hidden;
+      border-bottom: 1px solid black;
+    }
+
+    .header__logo-box {
+      width: calc(var(--unit) * 20);
+      margin: var(--unit);
+    }
+
+    .header__logo {
+      overflow: hidden;
+      height: 0;
+      padding-bottom: 31.2%;
+      background-image: url('images/logotype.svg');
+    }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>n-queens problem</h1>
+    <div class="header__logo-box">
+      <div class="header__logo"></div>
+    </div>
   </div>
   <div class="main-content">
     <div class="queens-board-container">
-
     </div>
     <div class="information-container">
 
