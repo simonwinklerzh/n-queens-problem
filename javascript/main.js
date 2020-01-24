@@ -5,6 +5,25 @@
 (function () {
 
   /* ==========================================================================
+     Helper Functions
+     ========================================================================== */
+
+  /**
+   * Shuffles array in place.
+   * @param {Array} a items An array containing the items.
+   */
+  function shuffle(a) {
+      var j, x, i;
+      for (i = a.length - 1; i > 0; i--) {
+          j = Math.floor(Math.random() * (i + 1));
+          x = a[i];
+          a[i] = a[j];
+          a[j] = x;
+      }
+      return a;
+  }
+
+  /* ==========================================================================
      Program
      ========================================================================== */
 
@@ -483,7 +502,7 @@
     // Render solution without visualisation of the process
     // await render_and_display_metrics('queens-target-2', create_initial_board(6));
 
-    render_demo_queens_problem('queens-board-container', set_queens(create_initial_board(8), 0));
+    render_demo_queens_problem('queens-board-container', await set_queens_random(create_initial_board(8), 0));
   }
 
   initialize();
