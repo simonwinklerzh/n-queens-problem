@@ -369,7 +369,7 @@
     const empty_board = get_queens_count(board) === 0;
 
     return `
-    <div class="queens ${empty_board ? 'queens--loading' : ''}" style="grid-template-columns: repeat(${board.length}, 1fr);">
+    <div class="queens-board ${empty_board ? 'queens--loading' : ''}" style="grid-template-columns: repeat(${board.length}, 1fr);">
       ${board.map(function create_row_view(row, row_index) {
         return row.map(function create_cell_view(cell, cell_index) {
           return `<div
@@ -382,7 +382,7 @@
                 return sum + 1;
               }, 0)
             }"
-            class="queens__cell"></div>`;
+            class="queens-board__cell"></div>`;
         }).join('');
       }).join('')}
     </div>
@@ -477,12 +477,16 @@
   /**
    * @async
    */
-  async function render_tests() {
+  async function initialize() {
     // Render visualised algorithm
-    await render_demo_queens_problem_with_steps('queens-target-1', create_initial_board(9), 0);
+    // await render_demo_queens_problem_with_steps('queens-target-1', create_initial_board(9), 0);
     // Render solution without visualisation of the process
     // await render_and_display_metrics('queens-target-2', create_initial_board(6));
+
+    render_demo_queens_problem('queens-board-container', create_initial_board(8));
   }
+
+  initialize();
 
   /**
    * @param {Queens_board}
