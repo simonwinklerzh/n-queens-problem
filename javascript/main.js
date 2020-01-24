@@ -1,6 +1,5 @@
 /* ==========================================================================
    Queens Problem - Backtracking algorithm
-   https://www.globalsoftwaresupport.com/backtracking-algorithms-explained/
    ========================================================================== */
 
 (function () {
@@ -39,24 +38,6 @@
    * @property {Queens_info} meta_info
    * @property {Queens_board} board
    */
-
-  /**
-   * Report
-   * @typedef {Object} Queens_report
-   * @property {Number} average_time
-   * @property {Number} average_steps
-   * @property {Number} median_steps
-   * @property {Number} number_of_boards
-   * @property {Number} board_size
-   * @property {String} description
-   */
-
-  /**
-   * List of reports
-   * @typedef {Queens_report[]} Queens_reports
-   */
-
-  const queens_reports_storage_key = 'Queens_reports';
 
   /**
    * @param {Number}
@@ -309,8 +290,6 @@
     return false;
   }
 
-  const wait = ms => new Promise((resolve) => setTimeout(resolve, ms));
-
 
   /**
    * This is another implementation of the algorithm which sets the
@@ -369,86 +348,6 @@
 
     return false;
   }
-
-  /**
-   * @returns {Queens_reports}
-   */
-  function get_reports_from_storage() {
-    const reports_raw = window.localStorage.getItem(queens_reports_storage_key);
-    const reports_parsed = JSON.parse(reports_raw);
-    if (reports_parsed === null) {
-      return [];
-    }
-    return reports_parsed;
-  }
-
-  /**
-   * @param {Queens_reports} reports
-   */
-  function set_reports_in_storage(reports) {
-    window.localStorage.setItem(queens_reports_storage_key, JSON.stringify(reports));
-  }
-
-  /**
-   * @param {Number} id - index of the entry to delete
-   * @returns {Queens_report}
-   */
-  function remove_report_from_storage(id) {
-    const reports = get_reports_from_storage();
-    const report_to_delete = reports.splice(id, 1);
-    set_reports_in_storage(reports);
-    console.log(report_to_delete);
-    return report_to_delete;
-  }
-
-  /**
-   * @param {Number} id - index of the entry to update
-   * @param {Queens_report} update_values - values to merge
-   * @returns {Queens_report}
-   */
-  function update_report_in_storage(id, update_values) {
-    const reports = get_reports_from_storage();
-    const updated_report = {
-      ...reports[id],
-      ...update_values
-    };
-    reports[id] = updated_report;
-    set_reports_in_storage(reports);
-    return updated_report;
-  }
-
-  /**
-   * Group reports by board count, get average values by board count
-   * @param {Queens_reports}
-   * @returns {Grouped_reports}
-   */
-  function group_reports(reports) {
-    return reports.reduce(function grouped_reports(
-      accumulator,
-      current
-    ) {
-      if (!accumulator[current.board_size]) {
-        accumulator[current.board_size] = [];
-      }
-      accumulator[current.board_size].push(current);
-      return accumulator;
-    }, {});
-  }
-
-
-  /* ==========================================================================
-     Input
-     ========================================================================== */
-
-    /**
-     * @param {Queens_report} report
-     * @param {Event} e
-     */
-    function handle_save_button_click(report, e) {
-      const reports = get_reports_from_storage();
-      reports.push(report);
-      set_reports_in_storage(reports);
-    }
 
 
   /* ==========================================================================
@@ -509,253 +408,6 @@
     }
     `;
   }
-
-  /**
-   * @param {Queens_report[]} reports
-   * @param {Queens_report} report
-   * @param {Number} [edit_id]
-   * @returns {String}
-   */
-  function create_queens_reports_list_entry(edit_id = null, reports, report) {
-    const id = reports.indexOf(report);
-    return `
-      <li class="queens-reports__entry" data-id="${id}">
-        <p class="queens-reports__entry-data">
-          <span class="queens-reports__entry-data-value">${id}</span>
-        </p>
-        <p class="queens-reports__entry-data">
-          <span class="queens-reports__entry-data-value">${round_to_two_decimals(report.average_time)}</span>
-        </p>
-        <p class="queens-reports__entry-data">
-          <span class="queens-reports__entry-data-value">${report.average_steps}</span>
-        </p>
-        <p class="queens-reports__entry-data">
-          <span class="queens-reports__entry-data-value">${report.median_steps}</span>
-        </p>
-        <p class="queens-reports__entry-data">
-          <span class="queens-reports__entry-data-value">${report.number_of_boards}</span>
-        </p>
-        <p class="queens-reports__entry-data">
-          <span class="queens-reports__entry-data-value">${report.board_size}</span>
-        </p>
-        <p class="queens-reports__entry-data">
-          ${
-            id === edit_id
-              ? `<input
-                  class="queens-reports__entry-description-input"
-                  type="text"
-                  value="${report.description ? report.description : ''}">`
-              : `<span
-                  class="queens-reports__entry-data-value">
-                    ${report.description ? report.description : ' - '}
-                </span>`
-          }
-        </p>
-        <p class="queens-reports__entry-data">
-          ${
-            id === edit_id
-              ? `<button
-                  class="queens-reports__entry-save">✓</button>`
-              : `<button
-                  class="queens-reports__entry-edit">✎</button>
-                <button
-                  class="queens-reports__entry-delete">✗</button>`
-          }
-        </p>
-      </li>
-    `;
-  }
-
-  /**
-   * Create queens reports view
-   * @param {Queens_reports} reports
-   * @param {Number} [edit_id]
-   * @returns {String}
-   */
-  function create_queens_reports_view_grouped(reports, edit_id) {
-    const grouped_reports = group_reports(reports);
-    if (!reports || reports.length === 0) {
-      return `
-        <div class="queens-reports">
-          <h2 class="queens-reports__title">Reports</h2>
-          <p class="queens-reports__empty">No reports yet</p>
-        </div>
-      `;
-    }
-    return `
-      <div class="queens-reports">
-        <h2 class="queens-reports__title">Reports</h2>
-        <ul class="queens-reports__list">
-          ${Object
-            .keys(grouped_reports)
-            .map(function create_grouped_view(key, index) {
-              return `
-              <li class="queens-reports__entry-group-title"><b>Board size: ${key}</b></li>
-              <li class="queens-reports__entry queens-reports__entry--head">
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label">ID:</span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label">Avg. time:</span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label">Avg. steps:</span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label">Median steps:</span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label">Boards:</span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label">Size:</span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label">Desc.:</span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label">Edit:</span>
-                </p>
-              </li>
-              ${
-                grouped_reports[key].map(
-                  create_queens_reports_list_entry.bind(null, edit_id, reports)
-                ).join('')
-              }
-              <li class="queens-reports__entry queens-reports__entry--footer">
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label">Total average:</span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label">
-                    ${
-                      round_to_two_decimals(
-                        get_average_number(
-                          grouped_reports[key]
-                            .map(get_prop.bind(null, 'average_time'))
-                        )
-                      )
-                    }
-                  </span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label">
-                    ${
-                      round_to_two_decimals(
-                        get_average_number(
-                          grouped_reports[key]
-                            .map(get_prop.bind(null, 'average_steps'))
-                        )
-                      )
-                    }
-                  </span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label">
-                    ${
-                      get_median_number(
-                        grouped_reports[key]
-                          .map(get_prop.bind(null, 'median_steps'))
-                      )
-                    }
-                  </span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label">
-                    ${
-                      grouped_reports[key]
-                        .map(get_prop.bind(null, 'number_of_boards'))
-                        .reduce((a, b) => a + b)
-                    }
-                  </span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label"></span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label"></span>
-                </p>
-                <p class="queens-reports__entry-data">
-                  <span class="queens-reports__entry-data-label"></span>
-                </p>
-              </li>`
-            }).join('')}
-        </ul>
-        <button class="queens-reports__refresh-button">Refresh</button>
-      </div>
-    `;
-  }
-
-  /**
-   * Create queens reports view
-   * @param {Queens_reports} reports
-   * @returns {String}
-   */
-  function create_queens_reports_view(reports) {
-    return `
-      <div class="queens-reports">
-        <ul class="queens-reports__list">
-          ${reports.map(create_queens_reports_list_entry).join('')}
-        </ul>
-        <button class="queens-reports__refresh-button">Refresh</button>
-      </div>
-    `;
-  }
-
-  /**
-   * @param {String} target
-   * @param {Queens_reports} reports
-   * @param {Number} [edit_id]
-   * @returns {Queens_reports}
-   */
-  function render_queens_reports_view(target, reports, edit_id = null) {
-    const target_node = document.getElementById(target);
-    // Render view in DOM
-    target_node.innerHTML = create_queens_reports_view_grouped(reports, edit_id);
-    // Append event listeners
-    equip_queens_reports_view(target);
-    return reports;
-  }
-
-  /**
-   * @param {String} id - HTML id
-   */
-  const equip_queens_reports_view = once(function(target) {
-    const target_node = document.getElementById(target);
-    target_node
-      .addEventListener('click', function(e) {
-        // Entry delete button
-        if (e.target.matches('.queens-reports__entry-delete')) {
-          const parent = e.target.closest('.queens-reports__entry');
-          const id = parseInt(parent.getAttribute('data-id'), 10);
-          remove_report_from_storage(id);
-          render_queens_reports_view(target, get_reports_from_storage());
-        }
-        // Entry edit button
-        else if (e.target.matches('.queens-reports__entry-edit')) {
-          const parent = e.target.closest('.queens-reports__entry');
-          const id = parseInt(parent.getAttribute('data-id'), 10);
-          render_queens_reports_view(target, get_reports_from_storage(), parseInt(id, 10));
-        }
-        // Entry save button
-        else if (e.target.matches('.queens-reports__entry-save')) {
-          const parent = e.target.closest('.queens-reports__entry');
-          const id = parseInt(parent.getAttribute('data-id'), 10);
-          const description = parent
-            .querySelector('.queens-reports__entry-description-input')
-            .value;
-          update_report_in_storage(id, { description });
-          render_queens_reports_view(target, get_reports_from_storage());
-        }
-        // Refresh button
-        else if (e.target.matches('.queens-reports__refresh-button')) {
-          render_queens_reports_view(target, get_reports_from_storage());
-        }
-        else {
-          return;
-        }
-      });
-  });
 
   /**
    * @param {Queens_board} board
@@ -822,132 +474,15 @@
     render_demo_queens_problem(target, solved_board, { step_count });
   }
 
-
-  /**
-   * @async
-   * @param {String} target - HTML ID
-   * @param {Number} board_size
-   * @param {Number} [number_of_boards]
-   * @param {Function} [save_button_handler]
-   * @returns {Queens_report}
-   */
-  async function render_and_display_average_metrics(
-    target,
-    board_size,
-    number_of_boards = 10,
-    save_button_handler = null
-  ) {
-    const execution_times = [];
-    const execution_steps = [];
-    const target_node = document.getElementById(target);
-
-    const queens_report = {
-      average_time: 0,
-      average_steps: 0,
-      median_steps: 0,
-      number_of_boards: 0,
-      board_size
-    };
-
-    target_node.classList.add('queens-info');
-
-    // Create new HTML Elements
-    const average_time_node = document.createElement('div');
-    average_time_node.classList.add('queens-info__time');
-    const average_step_node = document.createElement('div');
-    average_step_node.classList.add('queens-info__steps');
-    const median_step_node = document.createElement('div');
-    median_step_node.classList.add('queens-info__median');
-    const board_count_node = document.createElement('div');
-    board_count_node.classList.add('queens-info__board-count');
-    const save_button = document.createElement('button');
-    save_button.classList.add('queens-info__save-button');
-    const boards_container = document.createElement('div');
-    boards_container.classList.add('queens-info__boards-container');
-
-    // Insert elements into the DOM
-    target_node.appendChild(average_time_node);
-    target_node.appendChild(average_step_node);
-    target_node.appendChild(median_step_node);
-    target_node.appendChild(board_count_node);
-    target_node.appendChild(save_button);
-    target_node.appendChild(boards_container);
-
-    // Default text
-    average_time_node.innerHTML = `<b>Average time (ms):</b>`;
-    average_step_node.innerHTML = `<b>Average steps:</b>`;
-    median_step_node.innerHTML = `<b>Median steps:</b>`;
-    board_count_node.innerHTML = `<b>Board count:</b>`;
-
-    // Hide the save button if no handler function is provided,
-    // otherwise add the event handler
-    if (!save_button_handler) {
-      save_button.setAttribute('style', 'display: none;');
-    } else {
-      save_button.innerHTML = `Save report`;
-      save_button.onclick = save_button_handler.bind(null, queens_report);
-    }
-
-    // Get solutions, render board, get and display metrics
-    for (i = 0; i < number_of_boards; i += 1) {
-      const container_id = `queens-info-${Date.now()}`;
-      const container_node = document.createElement('div');
-      const board = create_initial_board(board_size);
-      container_node.setAttribute('id', container_id);
-      container_node.classList.add('queens-info__board');
-      boards_container.prepend(container_node);
-
-      const meta_info = await render_and_display_metrics(container_id, board);
-      execution_times.push(meta_info.time);
-      execution_steps.push(meta_info.step_count);
-
-      queens_report.average_time = get_average_number(execution_times);
-      queens_report.average_steps = Math.round(get_average_number(execution_steps));
-      queens_report.median_steps = Math.round(get_median_number(execution_steps));
-      queens_report.number_of_boards += 1;
-
-      average_time_node.innerHTML =
-        `<b>Average time (ms):</b> ${
-          queens_report.average_time
-        }`;
-      average_step_node.innerHTML =
-        `<b>Average steps:</b> ${
-          queens_report.average_steps
-        }`;
-      median_step_node.innerHTML =
-        `<b>Median steps:</b> ${
-          queens_report.median_steps
-        }`;
-      board_count_node.innerHTML =
-        `<b>Board count: ${
-          queens_report.number_of_boards
-        }</b>`;
-    }
-  }
-
   /**
    * @async
    */
   async function render_tests() {
-    // Render reports
-    render_queens_reports_view(
-      'queens-target-3',
-      get_reports_from_storage()
-    );
     // Render visualised algorithm
     await render_demo_queens_problem_with_steps('queens-target-1', create_initial_board(9), 0);
     // Render solution without visualisation of the process
     // await render_and_display_metrics('queens-target-2', create_initial_board(6));
-    // Generate a report
-    // render_and_display_average_metrics(
-    //   'queens-target-4',
-    //   9,
-    //   1000,
-    //   handle_save_button_click
-    // );
   }
-
-  render_tests();
 
   /**
    * @param {Queens_board}
@@ -956,12 +491,4 @@
     console.table(board.map(row => row.map(cell => cell.value)));
   }
 
-  /**
-   * Log board to console
-   * @param {Queens_board} board
-   */
-  function log_board(board) {
-    console.log(board);
-  }
-
-}())
+}());
