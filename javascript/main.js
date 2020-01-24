@@ -483,7 +483,7 @@
     // Render solution without visualisation of the process
     // await render_and_display_metrics('queens-target-2', create_initial_board(6));
 
-    render_demo_queens_problem('queens-board-container', create_initial_board(8));
+    render_demo_queens_problem('queens-board-container', set_queens(create_initial_board(8), 0));
   }
 
   initialize();
