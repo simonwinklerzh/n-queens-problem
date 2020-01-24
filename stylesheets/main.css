@@ -53,7 +53,7 @@ body {
    N-queens problem area
    ========================================================================== */
 
-.queens-board-container {
+.queens-problem-area {
   grid-column: span 2;
 }
 
