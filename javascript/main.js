@@ -403,6 +403,28 @@
   }
 
   /**
+   * @param {Number} cell_index
+   * @param {Number} row_index
+   * @param {Queens_board} board
+   * @returns {('bright'|'dark')}
+   */
+  function get_cell_color(cell_index, row_index, board) {
+    const linear_index = cell_index + row_index * board.length;
+    if (board.length % 2 !== 0) {
+      return linear_index % 2 === 0
+        ? 'bright'
+        : 'dark';
+    }
+    return row_index % 2 !== 0
+      ? linear_index % 2 === 0
+        ? 'dark'
+        : 'bright'
+      : linear_index % 2 === 0
+        ? 'bright'
+        : 'dark';
+  }
+
+  /**
    * @type {Solver}
    *
    * This is another implementation of the algorithm which sets the
@@ -544,9 +566,10 @@
 
     return `
     <div class="queens-board ${empty_board ? 'queens--loading' : ''}" style="grid-template-columns: repeat(${board.length}, 1fr);">
-      ${board.map(function create_row_view(row, row_index) {
+      ${board.map(function create_row_view(row, row_index, board) {
         return row.map(function create_cell_view(cell, cell_index) {
           return `<div
+            data-field_color="${get_cell_color(cell_index, row_index, board)}"
             data-index_x="${cell_index}"
             data-index_y="${row_index}"
             data-index="${`${row_index}${cell_index}`}"

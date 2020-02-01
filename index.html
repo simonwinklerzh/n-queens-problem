@@ -4,146 +4,154 @@
   <title>n-queens problem</title>
   <link type="text/css" rel="stylesheet" href="/stylesheets/main.css">
 </head>
-<body>
-  <div class="header">
-    <div class="header__logo-box">
-      <div class="header__logo"></div>
+<body class="layout">
+    <div class="header-container">
+        <div class="header-container__inner">
+          <div class="header__logo-box">
+            <div class="header__logo"></div>
+          </div>
+      </div>
     </div>
-  </div>
-  <div class="main-content">
-    <div class="queens-problem-area">
-      <div
-        id="queens-board-container"
-        class="queens-board-container">
-        <div
-          class="queens-board"
-          style="grid-template-columns: repeat(8, 1fr);">
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
-          <div class="queens-board__cell"></div>
+    <div class="title-container">
+      <div class="title-container__inner">
+        <h1 class="title">Generate a random solution</h1>
+      </div>
+    </div>
+    <div class="queens-container">
+      <div class="queens-container__inner">
+        <div class="queens-controls">
+          <div class="queens-controls__inner">
+            <div class="queens-controls__control-container">
+              <label class="queens-controls__label">
+                <span class="queens-controls__label-text">
+                  n =
+                </span>
+                <select
+                  class="queens-controls__input"
+                  data-type="board-size">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option selected value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                  <option value="13">13</option>
+                </select>
+              </label>
+            </div>
+            <div class="queens-controls__buttons-container">
+              <div class="queens-controls__submit-button-container">
+                <button class="queens-controls__submit-button">Start</button>
+              </div>
+              <div class="queens-controls__abort-button-container">
+                <button class="queens-controls__abort-button">Stop</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="queens-controls-arrow"></div>
+        <div class="queens-problem-area">
+          <div
+            id="queens-board-container"
+            class="queens-board-container">
+            <div
+              class="queens-board"
+              style="grid-template-columns: repeat(8, 1fr);">
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+              <div class="queens-board__cell"></div>
+            </div>
+          </div>
+        </div>
+        <div class="information-container">
+          <div class="information">
+            <p class="information__text">
+              Click the start button on the left in order to start the algorithm and watch it finding a random solution to the queens problem for a board with the given size.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="information-container">
-      <div class="queens-controls">
-        <div class="queens-controls__control-container">
-          <label class="queens-controls__label">
-            n =
-            <select
-              class="queens-controls__input"
-              data-type="board-size">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option selected value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="12">12</option>
-              <option value="13">13</option>
-            </select>
-          </label>
-        </div>
-        <!--
-        <div class="queens-controls__control-container">
-          <label class="queens-controls__label">
-            t =
-            <select class="queens-controls__input">
-              <option value="0">0 milliseconds</option>
-              <option value="100">100 milliseconds</option>
-              <option value="200">200 milliseconds</option>
-              <option value="400">400 milliseconds</option>
-              <option value="500">500 milliseconds</option>
-              <option value="600">600 milliseconds</option>
-              <option value="700">700 milliseconds</option>
-              <option value="800">800 milliseconds</option>
-              <option value="900">900 milliseconds</option>
-              <option value="1000">1 second</option>
-              <option value="5000">5 seconds</option>
-              <option value="10000">10 seconds</option>
-            </select>
-          </label>
-        </div>
-        -->
-        <div class="queens-controls__submit-button-container">
-          <button class="queens-controls__submit-button">Get a random solution</button>
-        </div>
-        <div class="queens-controls__abort-button-container">
-          <button class="queens-controls__abort-button">Abort</button>
-        </div>
-      </div>
-      <div class="information">
-        <p class="information__text">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+    <div class="title-container">
+      <div class="title-container__inner">
+        <h1 class="title">How the algorithm works</h1>
       </div>
     </div>
-  </div>
+    <div class="text-container">
+        <div class="text-container__inner">
+          <p class="text">The algorithm works as follows. A queen is placed on a random position at the board. All cells that are attacked by this queen, get marked as such.</p>
+          <p class="text">On the remaining cells, again a queen is being placed at a random position, the cells that are attacked by the queen get marked.</p>
+          <p class="text">When the algorithm reaches a point where there are less remaining un attacked fields than there are queens to be placed on the board, the algorithm backtracks the most recent step.</p>
+          <p class="text">That is, removing the last recent placed queen and unmark all cells that were attacked by this queen. Note that that a cell still might be marked as being attacked by another queen which is still on the board.</p>
+        </div>
+    </div>
   <script src="/javascript/main.js"></script>
 </body>
 </html>
