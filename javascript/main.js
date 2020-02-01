@@ -503,9 +503,6 @@
     if (state.get('running_algorithm')) {
       return;
     }
-    if (data.old_value === data.new_value) {
-      return;
-    }
     render_demo_queens_problem(
       'queens-board-container',
       create_initial_board(data.new_value)
