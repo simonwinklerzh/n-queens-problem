@@ -701,9 +701,6 @@
     );
   }
 
-  /**
-   * @async
-   */
   function initialize() {
     equip_queens_controls();
     set_default_board_size();
