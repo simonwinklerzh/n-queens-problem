@@ -588,7 +588,7 @@
         ? `<div class="queens-meta">
             ${ 'step_count' in meta_info
               ? `<p class="queens-meta__step-count">
-                  <b class="queens-meta__step-count-label">Steps:</b>
+                  <span class="queens-meta__step-count-label">Steps:</span>
                   ${meta_info.step_count}
                 </p>`
               : ''

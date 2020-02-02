@@ -21,10 +21,16 @@
   --two-units: calc(var(--unit) * 2);
   --three-units: calc(var(--unit) * 3);
   --four-units: calc(var(--unit) * 4);
-
-  --border-color: gray;
-
   --grid-gap: var(--half-unit);
+}
+
+@media
+  (min-width: 0px)
+  and
+  (max-width: 968px) {
+  :root {
+    --unit: calc(20px);
+  }
 }
 
 body {
@@ -63,10 +69,7 @@ body {
 .header-container__inner::before,
 .header-container__inner::after,
 .queens-container__inner::before,
-.queens-container__inner::after,
-.title-container__inner::before,
-.title-container__inner::after,
-.text-container__inner::after {
+.queens-container__inner::after {
   content: '';
   display: block;
   position: relative;
@@ -75,15 +78,12 @@ body {
 }
 
 .queens-container__inner::before,
-.title-container__inner::before,
 .header-container__inner::before {
   grid-column-start: 15;
 }
 
 .queens-container__inner::after,
-.title-container__inner::after,
-.header-container__inner::after,
-.text-container__inner::after {
+.header-container__inner::after {
   grid-column-start: 1;
 }
 
@@ -107,6 +107,15 @@ body {
   background-repeat: no-repeat;
 }
 
+.header__introtext {
+  color: #04152E;
+  grid-column-start: 5;
+  grid-column-end: 12;
+  position: absolute;
+  top: 52%;
+  font-size: 0.75em;
+}
+
 
 /* ==========================================================================
    Title
@@ -119,8 +128,9 @@ body {
 .title {
   grid-column-start: 2;
   grid-column-end: 15;
-  margin: 0;
+  margin: calc(var(--unit) * 1.5) 0;
   font-size: 1.1em;
+  letter-spacing: 0.01em;
 }
 
 
@@ -129,7 +139,7 @@ body {
    ========================================================================== */
 
 .queens-container {
-  background-color: black;
+  background-color: #04152E;
 }
 
 
@@ -269,6 +279,7 @@ body {
   position: absolute;
   top: 100%;
   margin-top: var(--grid-gap);
+  font-size: 0.8em;
 }
 
 .queens-meta__step-count {
@@ -283,7 +294,8 @@ body {
 
 .information-container {
   grid-column: span 5;
-  font-size: 0.7em;
+  font-size: 0.65em;
+  line-height: 1.3em;
   display: grid;
   align-items: end;
 }
@@ -303,6 +315,7 @@ body {
 
 .text-container {
   background-color: #16254C;
+  padding-bottom: var(--two-units);
 }
 
 .text {
@@ -310,4 +323,5 @@ body {
   grid-column-end: 9;
   margin-top: 0;
   font-size: 0.75em;
+  line-height: 1.22em;
 }
