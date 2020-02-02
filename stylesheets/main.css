@@ -63,6 +63,13 @@ body {
   background-position: top left;
   background-repeat: no-repeat;
   background-size: auto 90%;
+  transition: background-size 2s;
+}
+
+@media (max-width: 754px) {
+  .header-container__inner {
+    background-size: var(--two-units);
+  }
 }
 
 /* Witespace at the begining and/or the end of a layout section */
@@ -85,6 +92,12 @@ body {
 .queens-container__inner::after,
 .header-container__inner::after {
   grid-column-start: 1;
+}
+
+@media (max-width: 754px) {
+  .queens-container__inner::after {
+    order: 6;
+  }
 }
 
 /* ==========================================================================
@@ -112,8 +125,25 @@ body {
   grid-column-start: 5;
   grid-column-end: 12;
   position: absolute;
-  top: 52%;
+  top: 60%;
   font-size: 0.75em;
+  margin: 0;
+}
+
+@media (max-width: 754px) {
+  .header__logo-box {
+    grid-column-start: 2;
+    grid-column-end: 15;
+    max-width: 80%;
+    margin-bottom: var(--unit);
+  }
+
+  .header__introtext {
+    position: relative;
+    top: 0;
+    grid-column-start: 2;
+    grid-column-end: 11;
+  }
 }
 
 
@@ -135,7 +165,7 @@ body {
 
 
 /* ==========================================================================
-   Controls
+  Main area
    ========================================================================== */
 
 .queens-container {
@@ -176,8 +206,7 @@ body {
   align-items: center;
 }
 
-.queens-controls__label-text {
-}
+/*.queens-controls__label-text {}*/
 
 .queens-controls__buttons-container {
   display: grid;
@@ -189,6 +218,24 @@ body {
 .queens-controls__abort-button {
   width: 100%;
   display: block;
+}
+
+@media (max-width: 754px) {
+  .queens-controls {
+    order: 2;
+    margin: var(--grid-gap) 0;
+    border-radius: var(--grid-gap);
+    grid-column-start: 2;
+    grid-column-end: 15;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+  }
+
+  .queens-controls__inner {
+    grid-column-start: 1;
+    grid-column-end: 5;
+  }
 }
 
 
@@ -205,6 +252,15 @@ body {
   content: '=>';
   font-weight: bold;
   font-size: 1.2em;
+}
+
+@media (max-width: 754px) {
+  .queens-controls-arrow {
+    order: 3;
+    grid-column: span 15;
+    transform: rotate(90deg);
+    margin-bottom: var(--grid-gap);
+  }
 }
 
 
@@ -270,6 +326,20 @@ body {
   background-color: #16254C;
 }
 
+@media (max-width: 754px) {
+  .queens-problem-area {
+    order: 4;
+    grid-column-start: 2;
+    grid-column-end: 15;
+    margin-bottom: var(--grid-gap);
+  }
+
+  .queens-board {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
 
 /* ==========================================================================
    Meta information (Step counter)
@@ -285,6 +355,12 @@ body {
 .queens-meta__step-count {
   margin: 0;
   font-size: 0.75em;
+}
+
+@media (max-width: 754px) {
+  .queens-meta {
+    position: relative;
+  }
 }
 
 
@@ -308,6 +384,22 @@ body {
   margin: 0;
 }
 
+@media (max-width: 815px) {
+  .information-container {
+    margin-right: var(--grid-gap);
+  }
+}
+
+@media (max-width: 754px) {
+  .information-container {
+    order: 1;
+    grid-column-start: 2;
+    grid-column-end: 15;
+    margin: var(--grid-gap) auto;
+    width: 80%;
+  }
+}
+
 
 /* ==========================================================================
    Text section
@@ -324,4 +416,10 @@ body {
   margin-top: 0;
   font-size: 0.75em;
   line-height: 1.22em;
+}
+
+@media (max-width: 754px) {
+  .text {
+    grid-column-end: 12;
+  }
 }
