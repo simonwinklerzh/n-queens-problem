@@ -81,6 +81,7 @@
       board_size: 8,
       aborting: false,
       running_algorithm: null,
+      step_timeout_duration: 0
     };
     return {
       /**
@@ -495,6 +496,12 @@
     state.update('board_size', value);
   }
 
+  // Update the timeout duration state
+  function handle_step_timeout_duration_select(event) {
+    const value = parseInt(event.target.value, 10);
+    state.update('step_timeout_duration', value);
+  }
+
   // Rerun the algorithm
   async function handle_submit_button_click(event) {
     await abort_current_algoritm_execution();
@@ -534,8 +541,18 @@
   // Add event listeners
   function equip_queens_controls() {
     document
-      .querySelector('.queens-controls .queens-controls__input[data-type="board-size"]')
+      .querySelector(`
+        .queens-controls
+        .queens-controls__control-container[data-type="board-size"]
+        .queens-controls__input`)
       .addEventListener('change', handle_queens_board_size_select);
+
+    document
+      .querySelector(`
+        .queens-controls
+        .queens-controls__control-container[data-type="step-timeout"]
+        .queens-controls__input`)
+      .addEventListener('change', handle_step_timeout_duration_select);
 
     document
       .querySelector('.queens-controls .queens-controls__submit-button')
@@ -661,8 +678,7 @@
   async function render_demo_queens_problem_with_steps(
     target,
     board,
-    solver,
-    step_pause = 100
+    solver
   ) {
     let step_count = 0;
     render_demo_queens_problem(target, board);
@@ -677,7 +693,7 @@
         if (step_info && step_info.step_type && step_info.step_type === 'forward') {
           step_count += 1;
         }
-        await wait(step_pause);
+        await wait(state.get('step_timeout_duration'));
         render_demo_queens_problem(target, board, { step_count });
         return true;
       }
@@ -687,23 +703,38 @@
 
   function set_default_board_size() {
     const input_element = document
-      .querySelector('.queens-controls .queens-controls__input[data-type="board-size"]');
+      .querySelector(`
+        .queens-controls
+        .queens-controls__control-container[data-type="board-size"]
+        .queens-controls__input
+      `);
     const value = parseInt(input_element.value, 10);
     state.update('board_size', value);
+  }
+
+  function set_default_timeout_duration() {
+    const input_element = document
+      .querySelector(`
+        .queens-controls
+        .queens-controls__control-container[data-type="step-timeout"]
+        .queens-controls__input
+      `);
+    const value = parseInt(input_element.value, 10);
+    state.update('step_timeout_duration', value);
   }
 
   async function start_algorithm_execution() {
     return render_demo_queens_problem_with_steps(
       'queens-board-container',
       create_initial_board(state.get('board_size')),
-      solver_set_queens_random,
-      0
+      solver_set_queens_random
     );
   }
 
   function initialize() {
     equip_queens_controls();
     set_default_board_size();
+    set_default_timeout_duration();
   }
 
   initialize();

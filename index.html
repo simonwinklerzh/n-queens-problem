@@ -24,14 +24,14 @@
       <div class="queens-container__inner">
         <div class="queens-controls">
           <div class="queens-controls__inner">
-            <div class="queens-controls__control-container">
+            <div
+              class="queens-controls__control-container"
+              data-type="board-size">
               <label class="queens-controls__label">
                 <span class="queens-controls__label-text">
-                  n =
+                  n&nbsp;=
                 </span>
-                <select
-                  class="queens-controls__input"
-                  data-type="board-size">
+                <select class="queens-controls__input">
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -47,6 +47,23 @@
                   <option value="13">13</option>
                 </select>
               </label>
+            </div>
+            <div
+              class="queens-controls__control-container"
+              data-type="step-timeout">
+              <label class="queens-controls__label">
+                <span class="queens-controls__label-text">
+                  t*&nbsp;=
+                </span>
+                <select class="queens-controls__input">
+                  <option selected value="0">0 ms</option>
+                  <option value="100">2 ms</option>
+                  <option value="500">500 ms</option>
+                  <option value="1000">1000 ms</option>
+                  <option value="2000">2000 ms</option>
+                </select>
+              </label>
+              <span class="queens-controls__input-legend">* Timeout between each step</span>
             </div>
             <div class="queens-controls__buttons-container">
               <div class="queens-controls__submit-button-container">

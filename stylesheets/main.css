@@ -203,6 +203,12 @@ body {
   align-items: center;
 }
 
+/*.queens-controls__control-container[data-type="step-timeout"] .queens-controls__label {}*/
+
+.queens-controls__input-legend {
+  font-size: 0.5em;
+}
+
 /*.queens-controls__label-text {}*/
 
 .queens-controls__buttons-container {
