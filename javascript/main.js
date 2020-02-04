@@ -39,6 +39,7 @@
    * @typedef {Object} Queens_cell
    * @property {(0|1)} value
    * @property {string[]} attackers - xy coordinates
+   * @property {Boolean} [is_last_added_cell] - used to display an animation
    */
 
   /**
@@ -53,7 +54,8 @@
    * Meta information
    * @typedef {Object} Queens_info
    * @property {Number} step_count - Shows how many times a queen has been set on the board
-   * @property {Number} time - measure the duration
+   * @property {Number} [time] - measure the duration
+   * @property {Boolean} [should_animate_queens] - for a little CSS animation
    */
 
   /**
@@ -168,7 +170,7 @@
         if (step) {
           const keep_running = await step(board, {
             step_type: 'forward'
-          });
+          }, board[row_index][col_index]);
           if (keep_running === false) {
             return false;
           }
@@ -185,7 +187,7 @@
       if (step) {
         const keep_running = await step(board, {
           step_type: 'backward'
-        });
+        }, board[row_index][col_index]);
         if (keep_running === false) {
           return false;
         }
@@ -353,7 +355,7 @@
   }
 
   /**
-   * Mark all fields that are attacked by queen at `x` `y`
+   * Mark all fields that are attacked by queen at `x` `y`.
    *
    * @param {Queens_board} board
    * @param {Queens_cell} cell
@@ -460,7 +462,7 @@
       if (step) {
         const keep_running = await step(board, {
           step_type: 'forward'
-        });
+        }, random_cell);
         if (keep_running === false) {
           return false;
         }
@@ -476,7 +478,7 @@
       if (step) {
         const keep_running = await step(board, {
           step_type: 'backward'
-        });
+        }, random_cell);
         if (keep_running === false) {
           return false;
         }
@@ -582,7 +584,9 @@
     const empty_board = get_queens_count(board) === 0;
 
     return `
-    <div class="queens-board ${empty_board ? 'queens--loading' : ''}" style="grid-template-columns: repeat(${board.length}, 1fr);">
+    <div class="queens-board ${empty_board ? 'queens-board--loading' : ''}
+      ${meta_info && meta_info.should_animate_queens ? 'queens-board--animate' : ''}"
+      style="grid-template-columns: repeat(${board.length}, 1fr);">
       ${board.map(function create_row_view(row, row_index, board) {
         return row.map(function create_cell_view(cell, cell_index) {
           return `<div
@@ -596,7 +600,11 @@
                 return sum + 1;
               }, 0)
             }"
-            class="queens-board__cell"></div>`;
+            class="queens-board__cell ${
+              cell.is_last_added_cell
+                ? 'queens-board__cell--is-last-added-cell'
+                : ''
+            }"></div>`;
         }).join('');
       }).join('')}
     </div>
@@ -684,7 +692,7 @@
     render_demo_queens_problem(target, board);
     const solved_board = await solver(
       board,
-      async function (board, step_info) {
+      async function (board, step_info, cell) {
         // Abort execution
         if (state.get('aborting') === true) {
           return false;
@@ -692,9 +700,25 @@
         // Count how many times a queen has been set on the board
         if (step_info && step_info.step_type && step_info.step_type === 'forward') {
           step_count += 1;
+          // For displaying an animation for the most
+          // recent added cell.
+          board.flat().forEach(function (current_cell) {
+            delete current_cell.is_last_added_cell;
+          });
+          cell.is_last_added_cell = true;
+        }
+        if (step_info && step_info.step_type && step_info.step_type === 'backward') {
+          delete cell.is_last_added_cell;
         }
         await wait(state.get('step_timeout_duration'));
-        render_demo_queens_problem(target, board, { step_count });
+        render_demo_queens_problem(target, board, {
+          step_count,
+          // Animate the queens when the step timeout is set to be at
+          // least 500 ms
+          should_animate_queens: state.get('step_timeout_duration') >= 500
+            ? true
+            : false
+        });
         return true;
       }
     );
