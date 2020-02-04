@@ -182,14 +182,14 @@
 
         // Backtracking
         board[row_index][col_index].value = 0;
-      }
 
-      if (step) {
-        const keep_running = await step(board, {
-          step_type: 'backward'
-        }, board[row_index][col_index]);
-        if (keep_running === false) {
-          return false;
+        if (step) {
+          const keep_running = await step(board, {
+            step_type: 'backward'
+          }, board[row_index][col_index]);
+          if (keep_running === false) {
+            return false;
+          }
         }
       }
     }
