@@ -14,6 +14,17 @@
   --three-units: calc(var(--unit) * 3);
   --four-units: calc(var(--unit) * 4);
   --grid-gap: var(--half-unit);
+
+  --color-lightblue: #719DBD;
+  --color-matt-dark-blue: #41516D;
+  --color-dark-blue: #16254C;
+  --color-very-dark-blue: #04152E;
+
+  --theme-color-1: #ffffff;
+  --theme-color-2: var(--color-lightblue);
+  --theme-color-3: var(--color-matt-dark-blue);
+  --theme-color-4: var(--color-dark-blue);
+  --theme-color-5: var(--color-very-dark-blue);
 }
 
 @media
@@ -29,8 +40,8 @@ body {
   margin: 0;
   font-size: calc(var(--unit) * 0.8);
   font-family: Helvetica, 'sans-serif';
-  color: white;
-  background-color: #16254C;
+  color: var(--theme-color-1);
+  background-color: var(--theme-color-4);
 }
 
 
@@ -98,7 +109,7 @@ body {
    ========================================================================== */
 
 .header-container {
-  background-color: white;
+  background-color: var(--theme-color-1);
 }
 
 .header__logo-box {
@@ -118,7 +129,7 @@ body {
 }
 
 .header__introtext {
-  color: #04152E;
+  color: var(--theme-color-5);
   grid-column-start: 5;
   grid-column-end: 12;
   position: absolute;
@@ -149,7 +160,7 @@ body {
    ========================================================================== */
 
 .title-container {
-  background-color: #16254C;
+  background-color: var(--theme-color-4);
 }
 
 .title {
@@ -166,7 +177,7 @@ body {
    ========================================================================== */
 
 .queens-container {
-  background-color: #04152E;
+  background-color: var(--theme-color-5);
 }
 
 
@@ -182,7 +193,7 @@ body {
   margin-left: -1px;
   padding: var(--grid-gap);
   box-sizing: border-box;
-  border: 1px dashed white;
+  border: 1px dashed var(--theme-color-1);
   border-radius: 0 var(--grid-gap) var(--grid-gap) 0;
 }
 
@@ -293,11 +304,11 @@ body {
 }
 
 .queens-board__cell[data-field_color='bright'] {
-  background-color: #719DBD;
+  background-color: var(--theme-color-2);
 }
 
 .queens-board__cell[data-field_color='dark'] {
-  background-color: #41516D;
+  background-color: var(--theme-color-3);
 }
 
 /* makes the chess fields quadratic */
@@ -340,7 +351,7 @@ body {
 
 .queens-board__cell[data-value='1'][data-field_color='dark'],
 .queens-board__cell[data-value='1'][data-field_color='bright'] {
-  background-color: #16254C;
+  background-color: var(--theme-color-4);
 }
 
 @media (max-width: 754px) {
@@ -423,7 +434,7 @@ body {
    ========================================================================== */
 
 .text-container {
-  background-color: #16254C;
+  background-color: var(--theme-color-4);
   padding-bottom: var(--two-units);
 }
 
