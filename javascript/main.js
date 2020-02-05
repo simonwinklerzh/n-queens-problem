@@ -532,6 +532,14 @@
     }
   }
 
+  state.on_change('running_algorithm', function handle_algorithm_start() {
+    if (state.get('running_algorithm')) {
+      enable_abort_button();
+    } else {
+      disable_abort_button();
+    }
+  });
+
   // Render a new empty board with the new size
   state.on_change('board_size', async function hanlde_board_size_change(data) {
     if (state.get('running_algorithm')) {
@@ -542,6 +550,18 @@
       create_initial_board(data.new_value)
     );
   });
+
+  function enable_abort_button() {
+    document
+      .querySelector('.queens-controls .queens-controls__abort-button')
+      .disabled = false;
+  }
+
+  function disable_abort_button() {
+    document
+      .querySelector('.queens-controls .queens-controls__abort-button')
+      .disabled = true;
+  }
 
   // Add event listeners
   function equip_queens_controls() {
