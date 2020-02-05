@@ -222,6 +222,7 @@ body {
   font-size: 0.58em;
   display: block;
   margin-bottom: calc(var(--grid-gap) / 2);
+  font-weight: bold;
 }
 
 /*.queens-controls__label-text {}*/
