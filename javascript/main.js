@@ -74,6 +74,9 @@
    * @returns {(Queens_board|false)}
    */
 
+
+  const minimum_time_for_showing_queens_animation = 300;
+
   /**
    * UI state
    */
@@ -715,9 +718,10 @@
           step_count,
           // Animate the queens when the step timeout is set to be at
           // least 500 ms
-          should_animate_queens: state.get('step_timeout_duration') >= 500
-            ? true
-            : false
+          should_animate_queens:
+            state.get('step_timeout_duration') >= minimum_time_for_showing_queens_animation
+              ? true
+              : false
         });
         return true;
       }
