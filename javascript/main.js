@@ -532,6 +532,7 @@
     }
   }
 
+  // Enable/disable the abort button when the algorithm starts/stops
   state.on_change('running_algorithm', function handle_algorithm_start() {
     if (state.get('running_algorithm')) {
       enable_abort_button();
