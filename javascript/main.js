@@ -56,6 +56,7 @@
    * @property {Number} step_count - Shows how many times a queen has been set on the board
    * @property {Number} [time] - measure the duration
    * @property {Boolean} [should_animate_queens] - for a little CSS animation
+   * @property {Boolean} [solved] - a solution has been found
    */
 
   /**
@@ -608,8 +609,11 @@
     const empty_board = get_queens_count(board) === 0;
 
     return `
-    <div class="queens-board ${empty_board ? 'queens-board--loading' : ''}
-      ${meta_info && meta_info.should_animate_queens ? 'queens-board--animate' : ''}"
+    <div
+      class="queens-board
+      ${empty_board ? 'queens-board--loading' : ''}
+      ${meta_info && meta_info.should_animate_queens ? 'queens-board--animate' : ''}
+      ${meta_info && meta_info.solved ? 'queens-board--solved' : ''}"
       style="grid-template-columns: repeat(${board.length}, 1fr);">
       ${board.map(function create_row_view(row, row_index, board) {
         return row.map(function create_cell_view(cell, cell_index) {
@@ -747,7 +751,7 @@
         return true;
       }
     );
-    render_demo_queens_problem(target, solved_board, { step_count });
+    render_demo_queens_problem(target, solved_board, { step_count, solved: true });
   }
 
   function set_default_board_size() {

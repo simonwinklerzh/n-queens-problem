@@ -301,6 +301,10 @@ body {
   display: grid;
 }
 
+.queens-board--solved {
+  animation: 1s ease-out board_solved_animation;
+}
+
 .queens-board__cell {
   display: flex;
   align-items: center;
@@ -337,6 +341,18 @@ body {
   }
 }
 
+@keyframes board_solved_animation {
+  0% {
+    outline: : 3px solid white;
+  }
+  50% {
+    outline: : 0;
+  }
+  100% {
+    outline: : 3px solid white;
+  }
+}
+
 .queens-board__cell[data-value='1']::after {
   content: 'Q';
   font-weight: bold;
@@ -348,6 +364,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.queens-board--solved .queens-board__cell[data-value='1']::after {
+  content: '✔';
+  animation: 0.2s ease-in set_queen_on_board_animation;
 }
 
 .queens-board--animate .queens-board__cell--is-last-added-cell.queens-board__cell[data-value='1']::after {
