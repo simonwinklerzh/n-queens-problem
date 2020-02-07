@@ -15,16 +15,25 @@
   --four-units: calc(var(--unit) * 4);
   --grid-gap: var(--half-unit);
 
-  --color-lightblue: #719DBD;
-  --color-matt-dark-blue: #41516D;
-  --color-dark-blue: #16254C;
-  --color-very-dark-blue: #04152E;
+  --color-lightblue: 113, 157, 189;
+  --color-matt-dark-blue: 65, 81, 109;
+  --color-dark-blue: 22, 37, 76;
+  --color-very-dark-blue: 4, 21, 46;
 
-  --theme-color-1: #ffffff;
-  --theme-color-2: var(--color-lightblue);
-  --theme-color-3: var(--color-matt-dark-blue);
-  --theme-color-4: var(--color-dark-blue);
-  --theme-color-5: var(--color-very-dark-blue);
+  --theme-color-1: rgb(255, 255, 255);
+  --theme-color-1-raw: 255, 255, 255;
+
+  --theme-color-2: rgb(var(--color-lightblue));
+  --theme-color-2-raw: var(--color-lightblue);
+
+  --theme-color-3: rgb(var(--color-matt-dark-blue));
+  --theme-color-3-raw: var(--color-matt-dark-blue);
+
+  --theme-color-4: rgb(var(--color-dark-blue));
+  --theme-color-4-raw: var(--color-dark-blue);
+
+  --theme-color-5: rgb(var(--color-very-dark-blue));
+  --theme-color-5-raw: var(--color-very-dark-blue);
 }
 
 @media
@@ -41,7 +50,10 @@ body {
   font-size: calc(var(--unit) * 0.8);
   font-family: Helvetica, 'sans-serif';
   color: var(--theme-color-1);
-  background-color: var(--theme-color-4);
+  background-image: url('../images/stars.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 
@@ -60,20 +72,12 @@ body {
   max-width: 100%;
 }
 
-/* Triangle behind the logotype */
-.header-container__inner {
+.header-container {
   position: relative;
-  background-image: url('../images/triangle.svg');
-  background-position: top left;
-  background-repeat: no-repeat;
-  background-size: auto 90%;
-  transition: background-size 2s;
 }
 
-@media (max-width: 754px) {
-  .header-container__inner {
-    background-size: var(--two-units);
-  }
+.header-container__inner {
+  position: relative;
 }
 
 /* Witespace at the begining and/or the end of a layout section */
@@ -109,11 +113,10 @@ body {
    ========================================================================== */
 
 .header-container {
-  background-color: var(--theme-color-1);
+  background-color: rgba(var(--theme-color-5-raw), 0.5);
 }
 
 .header__logo-box {
-  width: calc(var(--unit) * 20);
   grid-column-start: 2;
   grid-column-end: 10;
   /* Small visual adjustment */
@@ -156,11 +159,56 @@ body {
 
 
 /* ==========================================================================
+   Triangle Mask
+   Area with spared out triangle in the header
+   ========================================================================== */
+
+.triangle-mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: auto 1fr;
+  display: grid;
+  transform: translateZ(0);
+  align-items: stretch;
+}
+
+.triangle-mask__main {
+  width: calc(var(--unit) * 40);
+  max-width: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 24% 1fr;
+  grid-template-rows: auto 1fr;
+  align-items: stretch;
+}
+
+.triangle-mask__rest,
+.triangle-mask__section:not(:first-child) {
+  background: var(--theme-color-1);
+}
+
+.triangle-mask__triangle {
+  display: block;
+}
+
+.triangle-mask__triangle-path {
+  fill: var(--theme-color-1);
+}
+
+@media (max-width: 754px) {
+  .triangle-mask__main {
+    grid-template-columns: var(--two-units) 1fr;
+  }
+}
+
+
+/* ==========================================================================
    Title
    ========================================================================== */
 
 .title-container {
-  background-color: var(--theme-color-4);
+  background-color: rgba(var(--theme-color-4-raw), 0.9)
 }
 
 .title {
@@ -177,7 +225,7 @@ body {
    ========================================================================== */
 
 .queens-container {
-  background-color: var(--theme-color-5);
+  background-color: rgba(var(--theme-color-5-raw), 0.5)
 }
 
 
@@ -460,8 +508,8 @@ body {
    ========================================================================== */
 
 .text-container {
-  background-color: var(--theme-color-4);
   padding-bottom: var(--two-units);
+  background-color: rgba(var(--theme-color-4-raw), 0.9);
 }
 
 .text {
