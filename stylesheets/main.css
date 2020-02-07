@@ -459,6 +459,8 @@ body {
 @media (max-width: 754px) {
   .queens-meta {
     position: relative;
+    width: 80%;
+    left: 10%;
   }
 }
 
