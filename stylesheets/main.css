@@ -491,6 +491,13 @@ body {
   }
 }
 
+@media (min-width: 755px) {
+  /* Align the baseline of the text with the lower border of the board */
+  .information__text {
+    margin-bottom: -0.24em;
+  }
+}
+
 @media (max-width: 754px) {
   .information-container {
     order: 1;
