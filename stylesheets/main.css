@@ -72,14 +72,6 @@ body {
   max-width: 100%;
 }
 
-.header-container {
-  position: relative;
-}
-
-.header-container__inner {
-  position: relative;
-}
-
 /* Witespace at the begining and/or the end of a layout section */
 .header-container__inner::before,
 .header-container__inner::after,
@@ -114,6 +106,11 @@ body {
 
 .header-container {
   background-color: rgba(var(--theme-color-5-raw), 0.5);
+  position: relative;
+}
+
+.header-container__inner {
+  position: relative;
 }
 
 .header__logo-box {
