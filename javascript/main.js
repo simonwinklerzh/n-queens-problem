@@ -646,20 +646,6 @@
                 </p>`
               : ''
             }
-            ${ 'step_back_count' in meta_info
-              ? `<p class="queens-meta__step-count">
-                  <span class="queens-meta__step-count-label">Steps back:</span>
-                  ${meta_info.step_back_count}
-                </p>`
-              : ''
-            }
-            ${ 'longest_break_between_steps' in meta_info
-              ? `<p class="queens-meta__step-count">
-                  <span class="queens-meta__step-count-label">longest_break_between_steps:</span>
-                  ${meta_info.longest_break_between_steps}
-                </p>`
-              : ''
-            }
             ${ 'time' in meta_info
               ? `<p class="queens-meta__time">
                   <b class="queens-meta__time-label">Time:</b>
@@ -731,10 +717,6 @@
     solver
   ) {
     let step_count = 0;
-    let step_back_count = 0;
-    let time_1 = window.performance.now();
-    let time_2 = 0;
-    let longest_break_between_steps = 0;
     render_demo_queens_problem(target, board);
     const solved_board = await solver(
       board,
@@ -743,11 +725,6 @@
         if (state.get('aborting') === true) {
           return false;
         }
-        time_2 = window.performance.now();
-        if (time_2 - time_1 > longest_break_between_steps) {
-          longest_break_between_steps = time_2 - time_1;
-        }
-        time_1 = time_2;
         // Count how many times a queen has been set on the board
         if (step_info && step_info.step_type && step_info.step_type === 'forward') {
           step_count += 1;
@@ -759,14 +736,11 @@
           cell.is_last_added_cell = true;
         }
         if (step_info && step_info.step_type && step_info.step_type === 'backward') {
-          step_back_count += 1;
           delete cell.is_last_added_cell;
         }
         await wait(state.get('step_timeout_duration'));
         render_demo_queens_problem(target, board, {
           step_count,
-          step_back_count,
-          longest_break_between_steps,
           // Animate the queens when the step timeout is set to be at
           // least 500 ms
           should_animate_queens:
@@ -777,7 +751,7 @@
         return true;
       }
     );
-    render_demo_queens_problem(target, solved_board, { step_count, step_back_count, longest_break_between_steps, solved: true });
+    render_demo_queens_problem(target, solved_board, { step_count, solved: true });
   }
 
   function set_default_board_size() {
