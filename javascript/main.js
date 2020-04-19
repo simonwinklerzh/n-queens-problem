@@ -447,20 +447,20 @@
       return true;
     }
 
-    const cells = shuffle(get_free_cells(board));
+    const remaining_cells = shuffle(get_free_cells(board));
 
     // Not all queens have been placed, but there are no free cells left
-    if (cells.length === 0) {
+    if (remaining_cells.length === 0) {
       return false;
     }
 
     // There are less remaining free cells than queens to place on the board
-    if (cells.length < board.length - queens_count) {
+    if (remaining_cells.length < board.length - queens_count) {
       return false;
     }
 
-    for (let i = 0; i < cells.length; i += 1) {
-      const random_cell = cells[i];
+    for (let i = 0; i < remaining_cells.length; i += 1) {
+      const random_cell = remaining_cells[i];
       mark_attacked_fields(board, random_cell);
 
       if (step) {
