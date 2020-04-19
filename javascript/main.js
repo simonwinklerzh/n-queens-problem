@@ -261,6 +261,38 @@
   }
 
   /**
+   * This function gives us the top left sub-square of a queens board.
+   * It will include the middle-column and middle row, if the side
+   * length of the square happens to be an uneven number.
+   *
+   * -----------------
+   * | x | x |   |   |
+   * -----------------
+   * | x | x |   |   |
+   * -----------------
+   * |   |   |   |   |
+   * -----------------
+   * |   |   |   |   |
+   * -----------------
+   *
+   * @param {Queens_board} board
+   * @returns {Queens_board} - the top left sub-square of a board
+   */
+  function get_sub_suqare(board) {
+    const middle_of_board = Math.ceil(board.length / 2);
+    return board
+      .flat()
+      .filter(function (current, index) {
+        const x_index = index % board.length;
+        const y_index = Math.ceil((index + 1) / board.length);
+        if (x_index <= middle_of_board && y_index <= middle_of_board) {
+          return true;
+        }
+        return false;
+      });
+  }
+
+  /**
    * @param {Queens_board}
    * @param {Number} y
    * @returns {Queens_cell[]}
@@ -473,6 +505,70 @@
       }
 
       if (await solver_set_queens_random(board, step)) {
+        return board;
+      }
+
+      // Backtracking
+      unmark_attacked_fields(board, random_cell);
+
+      if (step) {
+        const keep_running = await step(board, {
+          step_type: 'backward'
+        }, random_cell);
+        if (keep_running === false) {
+          return false;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * @type {Solver}
+   */
+  async function solver_set_queens_random_2(
+    board,
+    step = null,
+    first_run = true
+  ) {
+    const queens_count = get_queens_count(board);
+
+    // All queens have been placed
+    if (queens_count === board.length) {
+      return true;
+    }
+
+    const remaining_cells = shuffle(get_free_cells(board));
+
+    // Not all queens have been placed, but there are no free cells left
+    if (remaining_cells.length === 0) {
+      return false;
+    }
+
+    // There are less remaining free cells than queens to place on the board
+    if (remaining_cells.length < board.length - queens_count) {
+      return false;
+    }
+
+    const cells_to_check = first_run
+      ? shuffle(get_sub_suqare(board))
+      : remaining_cells;
+
+    for (let i = 0; i < cells_to_check.length; i += 1) {
+      const random_cell = cells_to_check[i];
+      mark_attacked_fields(board, random_cell);
+
+      if (step) {
+        const keep_running = await step(board, {
+          step_type: 'forward'
+        }, random_cell);
+        if (keep_running === false) {
+          return false;
+        }
+      }
+
+      if (await solver_set_queens_random_2(board, step, false)) {
         return board;
       }
 
@@ -780,7 +876,7 @@
     return render_demo_queens_problem_with_steps(
       'queens-board-container',
       create_initial_board(state.get('board_size')),
-      solver_set_queens_random
+      solver_set_queens_random_2
     );
   }
 
