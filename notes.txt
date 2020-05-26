@@ -3,5 +3,3 @@ Notes to self:
 These are my first attempts with css grids, so it might not be used in the most elegant way.
 
 There are two algorithms in the source code which solve the queens problem, but in a different manner.
-
-The duration of timeouts between steps should be configurable by users.
