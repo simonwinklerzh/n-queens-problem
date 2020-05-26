@@ -526,6 +526,21 @@
 
   /**
    * @type {Solver}
+   *
+   * WIP
+   *
+   * This is an effort to improve 'solver_set_queens_random'.
+   * On the first level of the recursive function, the algorithm
+   * chooses a random field from only the top left sub-square of
+   * the chess board.
+   *
+   * The idea is, that if there is no solution at all for one top
+   * level field (selected in the first iteration), other invalid
+   * paths that can be created by rotating / reflecting the board
+   * are excluded automatically.
+   *
+   * I dont currently know how much sense this makes and how effective it is.
+   *
    */
   async function solver_set_queens_random_2(
     board,
@@ -539,7 +554,7 @@
       return true;
     }
 
-    const remaining_cells = shuffle(get_free_cells(board));
+    const remaining_cells = get_free_cells(board);
 
     // Not all queens have been placed, but there are no free cells left
     if (remaining_cells.length === 0) {
@@ -876,7 +891,7 @@
     return render_demo_queens_problem_with_steps(
       'queens-board-container',
       create_initial_board(state.get('board_size')),
-      solver_set_queens_random_2
+      solver_set_queens_random
     );
   }
 
