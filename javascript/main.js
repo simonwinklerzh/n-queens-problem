@@ -820,7 +820,7 @@
    * @async
    * @param {String} target - HTML ID
    * @param {Queens_board} board
-   * @param {Number} [step_pause] - in miliseconds
+   * @param {Solver} solver - solving algorithm
    */
   async function render_demo_queens_problem_with_steps(
     target,
