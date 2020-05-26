@@ -1,6 +1,6 @@
 ![](images/readme-header.jpg)
 
-#Generating a random solution to the n-queens problem
+# Generating a random solution to the n-queens problem
 
 This is a small fun project. I've implemented an algorithm that will find a random solution to the [n-queens-problem](https://en.wikipedia.org/wiki/Eight_queens_puzzle). It comes with a user interface, that visualizes each step.
 
