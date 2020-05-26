@@ -283,7 +283,7 @@
     return board
       .flat()
       .filter(function (current, index) {
-        const x_index = index % board.length;
+        const x_index = index % board.length + 1;
         const y_index = Math.ceil((index + 1) / board.length);
         if (x_index <= middle_of_board && y_index <= middle_of_board) {
           return true;
